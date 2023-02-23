@@ -1,0 +1,32 @@
+﻿using Catalog.Host.Models.Dtos;
+using Catalog.Host.Services.Interfaces;
+using Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
+
+namespace Catalog.Host.Controllers
+{
+    [ApiController]
+    [Route(ComponentDefaults.DefaultRoute)]
+    public class CatalogBffController : ControllerBase
+    {
+        private readonly ILogger<CatalogBffController> _logger;
+        private readonly ICatalogService _catalogService;
+
+        public CatalogBffController(
+            ILogger<CatalogBffController> logger,
+            ICatalogService catalogService)
+        {
+            _logger = logger;
+            _catalogService = catalogService;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(IEnumerable<ItemDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Items()
+        {
+            var result = await _catalogService.GetAll();
+            return Ok(result);
+        }
+    }
+}

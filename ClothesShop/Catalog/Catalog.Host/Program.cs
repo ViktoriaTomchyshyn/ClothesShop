@@ -1,4 +1,8 @@
 using Catalog.Host.Data;
+using Catalog.Host.Repositories;
+using Catalog.Host.Repositories.Interfaces;
+using Catalog.Host.Services.Interfaces;
+using Catalog.Host.Services;
 using Microsoft.EntityFrameworkCore;
 
 var configuration = GetConfiguration();
@@ -14,6 +18,13 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsq
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<IItemRepository, ItemRepository>();
+builder.Services.AddTransient<ICatalogService, CatalogService>();
+builder.Services.AddTransient<IItemService, ItemService>();
+
+builder.Services.AddScoped<IDbContextWrapper<ApplicationDbContext>, DbContextWrapper<ApplicationDbContext>>();
+
 
 var app = builder.Build();
 
