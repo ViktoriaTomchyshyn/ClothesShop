@@ -2,12 +2,16 @@
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
 using Infrastructure;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace Catalog.Host.Controllers
 {
     [ApiController]
+    [Authorize(Policy = AuthPolicy.AllowClientPolicy)]
+    [Scope("catalog.catalogitem")]
     [Route(ComponentDefaults.DefaultRoute)]
     public class ItemController : ControllerBase
     {

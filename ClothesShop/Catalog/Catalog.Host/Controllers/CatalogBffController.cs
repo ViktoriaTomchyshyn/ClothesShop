@@ -1,12 +1,16 @@
 ﻿using Catalog.Host.Models.Dtos;
 using Catalog.Host.Services.Interfaces;
 using Infrastructure;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace Catalog.Host.Controllers
 {
     [ApiController]
+    [Scope("catalog.catalogitem")]
+    [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogBffController : ControllerBase
     {
@@ -22,6 +26,7 @@ namespace Catalog.Host.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<ItemDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Items()
         {

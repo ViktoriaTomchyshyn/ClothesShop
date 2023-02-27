@@ -1,31 +1,20 @@
 ﻿{
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:35618",
-      "sslPort": 44353
-    }
+  "CdnHost": "http://www.alevelwebsite.com",
+  "PathBase": "http://www.alevelwebsite.com:5000",
+  "ImgUrl": "assets/images",
+  "ConnectionString": "server=www.alevelwebsite.com;port=5433;database=catalog;uid=postgres;password=postgres;",
+  "Authorization": {
+    "Authority": "http://www.alevelwebsite.com:5002",
+    "SiteAudience": "alevelwebsite.com"
   },
-  "profiles": {
-    "Catalog.Host": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7160;http://localhost:5160",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+  "Client": {
+    "Id": "catalog",
+    "Secret": "secret"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
     }
   }
 }
