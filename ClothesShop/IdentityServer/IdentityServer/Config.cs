@@ -32,6 +32,13 @@ namespace IdentityServer
                     {
                         new Scope("catalog.catalogitem"),
                     },
+                },
+                new ApiResource("basket")
+                {
+                    Scopes = new List<Scope>
+                    {
+                        new Scope("basket.basket"),
+                    },
                 }
             };
         }
@@ -64,6 +71,19 @@ namespace IdentityServer
                         new Secret("secret".Sha256())
                     },
                 },
+                 new Client
+                {
+                    ClientId = "basket",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes =
+                    {
+                        "catalog.products"
+                    },
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                },
                 new Client
                 {
                     ClientId = "catalogswaggerui",
@@ -77,6 +97,21 @@ namespace IdentityServer
                     AllowedScopes =
                     {
                         "mvc", "catalog.catalogitem"
+                    }
+                },
+                 new Client
+                {
+                    ClientId = "basketswaggerui",
+                    ClientName = "Basket Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{configuration["BasketApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{configuration["BasketApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "mvc", "basket.basket"
                     }
                 }
             };
