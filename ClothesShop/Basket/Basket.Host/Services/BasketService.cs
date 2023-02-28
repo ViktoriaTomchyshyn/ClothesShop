@@ -35,6 +35,7 @@ public class BasketService : IBasketService
         }
 
         await _cacheService.AddOrUpdateAsync(userId, items);
+        _logger.LogInformation($"Item {item.Name} has been added");
 
     }
 
@@ -42,19 +43,19 @@ public class BasketService : IBasketService
     {
         var items = await GetItems(userId);
 
-        var existingProduct = items.FirstOrDefault(p => p.Id == itemId);
+        var existingItem = items.FirstOrDefault(p => p.Id == itemId);
 
-        if (existingProduct is not null)
+        if (existingItem is not null)
         {
-            existingProduct.Amount -= amount;
+            existingItem.Amount -= amount;
 
-            if (existingProduct.Amount <= 0)
+            if (existingItem.Amount <= 0)
             {
                 items = items.Where(p => p.Id != itemId);
             }
 
             await _cacheService.AddOrUpdateAsync(userId, items);
-
+            _logger.LogInformation($"Item {existingItem?.Name} has been deleted");
         }
     }
 
