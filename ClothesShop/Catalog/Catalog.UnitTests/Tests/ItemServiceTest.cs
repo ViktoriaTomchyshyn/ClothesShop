@@ -48,7 +48,7 @@ namespace Catalog.UnitTests.Tests
             var dbContextTransaction = new Mock<IDbContextTransaction>();
             _dbContextWrapper.Setup(s => s.BeginTransactionAsync(It.IsAny<CancellationToken>())).ReturnsAsync(dbContextTransaction.Object);
 
-            _itemService = new ItemService(_dbContextWrapper.Object, _baseServiceLogger.Object, _itemRepository.Object);
+            _itemService = new ItemService(_dbContextWrapper.Object, _baseServiceLogger.Object, _itemRepository.Object, _logger.Object);
         }
 
         [Fact]
