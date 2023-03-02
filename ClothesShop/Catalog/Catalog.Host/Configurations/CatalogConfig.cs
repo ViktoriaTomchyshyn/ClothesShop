@@ -2,7 +2,7 @@
 {
     public class CatalogConfig
     {
-        public string Host { get; set; }
+        public string CdnHost { get; set; }
 
         public string ImgUrl { get; set; }
 
