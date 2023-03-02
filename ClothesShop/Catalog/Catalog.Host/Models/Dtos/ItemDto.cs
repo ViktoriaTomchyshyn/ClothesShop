@@ -16,7 +16,7 @@
 
         public decimal Price { get; set; }
 
-        public string PictureFileName { get; set; }
+        public string PictureUrl { get; set; }
 
         public int AvailableStock { get; set; }
 

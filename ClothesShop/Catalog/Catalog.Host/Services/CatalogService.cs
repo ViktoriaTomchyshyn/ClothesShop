@@ -1,7 +1,10 @@
-﻿using Catalog.Host.Data;
+﻿using AutoMapper;
+using Catalog.Host.Data;
 using Catalog.Host.Models.Dtos;
+using Catalog.Host.Models.Response;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
+using IdentityModel;
 
 namespace Catalog.Host.Services
 {
@@ -9,19 +12,21 @@ namespace Catalog.Host.Services
     {
         private readonly IItemRepository _itemRepository;
         private readonly ILogger<CatalogService> _logger;
+        private readonly IMapper _mapper;
 
         public CatalogService(
             IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
             ILogger<BaseDataService<ApplicationDbContext>> logger,
             IItemRepository itemRepository,
-            ILogger<CatalogService> localLogger)
+            ILogger<CatalogService> localLogger, IMapper mapper)
             : base(dbContextWrapper, logger)
         {
             _itemRepository = itemRepository;
             _logger = localLogger;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ItemDto>> GetAll()
+        public async Task<CatalogResponse> GetAll()
         {
             return await ExecuteSafeAsync(async () =>
             {
@@ -29,10 +34,12 @@ namespace Catalog.Host.Services
                 var result = new List<ItemDto>();
                 foreach (var item in items)
                 {
-                    result.Add(new ItemDto() { Id = item.Id, AvailableStock = item.AvailableStock, Description = item.Description, Name = item.Name, Price = item.Price, Brand = item.Brand, Category = item.Category, Size = item.Size, PictureFileName = item.PictureFileName });
+                    var newItem = new ItemDto();
+                    var mappedItem = _mapper.Map<ItemDto>(newItem);
+                    result.Add(mappedItem);
                 }
                 _logger.LogInformation($"Found {result.Count} items");
-                return result;
+                return new CatalogResponse() { Data = result };
             });
         }
     }
