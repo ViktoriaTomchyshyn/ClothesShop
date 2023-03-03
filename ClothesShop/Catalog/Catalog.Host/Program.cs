@@ -80,6 +80,8 @@ builder.Services.AddCors(options =>
             .AllowCredentials());
 });
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 app.UseSwagger()

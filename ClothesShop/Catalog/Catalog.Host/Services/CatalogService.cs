@@ -34,8 +34,7 @@ namespace Catalog.Host.Services
                 var result = new List<ItemDto>();
                 foreach (var item in items)
                 {
-                    var newItem = new ItemDto();
-                    var mappedItem = _mapper.Map<ItemDto>(newItem);
+                    var mappedItem = _mapper.Map<ItemDto>(item);
                     result.Add(mappedItem);
                 }
                 _logger.LogInformation($"Found {result.Count} items");

@@ -1,4 +1,5 @@
 ﻿using Catalog.Host.Models.Dtos;
+using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
 using Infrastructure;
 using Infrastructure.Identity;
@@ -27,7 +28,7 @@ namespace Catalog.Host.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(IEnumerable<ItemDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CatalogResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Items()
         {
             var result = await _catalogService.GetAll();
