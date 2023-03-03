@@ -25,7 +25,7 @@ public class CatalogController : Controller
         {
             CatalogItems = catalog.Data,
             Brands = await _catalogService.GetBrands(),
-            Types = await _catalogService.GetTypes(),
+            Categories = await _catalogService.GetCategories(),
         };
 
         return View(vm);

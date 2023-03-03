@@ -6,5 +6,5 @@ public interface ICatalogService
 {
     Task<Catalog> GetCatalogItems();
     Task<IEnumerable<SelectListItem>> GetBrands();
-    Task<IEnumerable<SelectListItem>> GetTypes();
+    Task<IEnumerable<SelectListItem>> GetCategories();
 }

@@ -5,6 +5,12 @@ namespace Catalog.Host.Services.Interfaces
 {
     public interface ICatalogService
     {
-        Task<CatalogResponse> GetAll();
+        Task<CatalogResponse> GetItemsAsync();
+
+        Task<ItemDto> GetItemAsync(int id);
+
+        Task<IEnumerable<string>> GetBrandsAsync();
+
+        Task<IEnumerable<string>> GetCategoriesAsync();
     }
 }

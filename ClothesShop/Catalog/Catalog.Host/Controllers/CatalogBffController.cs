@@ -1,4 +1,5 @@
 ﻿using Catalog.Host.Models.Dtos;
+using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
 using Infrastructure;
@@ -31,7 +32,33 @@ namespace Catalog.Host.Controllers
         [ProducesResponseType(typeof(CatalogResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Items()
         {
-            var result = await _catalogService.GetAll();
+            var result = await _catalogService.GetItemsAsync();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(ItemDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Product(GetByIdRequest request)
+        {
+            var result = await _catalogService.GetItemAsync(request.Id);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(IEnumerable<string>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Brands()
+        {
+            var result = await _catalogService.GetBrandsAsync();
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(IEnumerable<string>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Categories()
+        {
+            var result = await _catalogService.GetCategoriesAsync();
             return Ok(result);
         }
     }

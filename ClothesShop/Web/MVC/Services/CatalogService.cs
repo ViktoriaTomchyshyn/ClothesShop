@@ -31,43 +31,38 @@ public class CatalogService : ICatalogService
 
     public async Task<IEnumerable<SelectListItem>> GetBrands()
     {
-        await Task.Delay(300);
-        var list = new List<SelectListItem>
+        var list = new List<SelectListItem>();
+
+        var result = await _httpClient.SendAsync<IEnumerable<string>, object>(
+            $"{_settings.Value.CatalogUrl}/brands",
+            HttpMethod.Post,
+            new { });
+
+        _logger.LogInformation($"Received {result.Count()} brands");
+
+        foreach (var brand in result)
         {
-            new SelectListItem()
-            {
-                Value = "0",
-                Text = "brand 1"
-            },
-            new SelectListItem()
-            {
-                Value = "1",
-                Text = "brand 2"
-            }
-        };
-        var result = await _httpClient.SendAsync<object, object>($"{_settings.Value.CatalogUrl}/getbrands",
-            HttpMethod.Post, new {} );
-        
+            list.Add(new SelectListItem() { Value = brand, Text = brand });
+        }
+
         return list;
     }
 
-    public async Task<IEnumerable<SelectListItem>> GetTypes()
+    public async Task<IEnumerable<SelectListItem>> GetCategories()
     {
-        await Task.Delay(300);
-        var list = new List<SelectListItem>
+        var list = new List<SelectListItem>();
+
+        var result = await _httpClient.SendAsync<IEnumerable<string>, object>(
+            $"{_settings.Value.CatalogUrl}/categories",
+            HttpMethod.Post,
+            new { });
+
+        _logger.LogInformation($"Received {result.Count()} categories");
+
+        foreach (var category in result)
         {
-            new SelectListItem()
-            {
-                Value = "0",
-                Text = "type 1"
-            },
-            
-            new SelectListItem()
-            {
-                Value = "1",
-                Text = "type 2"
-            }
-        };
+            list.Add(new SelectListItem() { Value = category, Text = category });
+        }
 
         return list;
     }

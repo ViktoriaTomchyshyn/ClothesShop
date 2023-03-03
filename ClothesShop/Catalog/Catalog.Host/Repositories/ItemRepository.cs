@@ -2,6 +2,7 @@
 using Catalog.Host.Data.Entities;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Host.Repositories
@@ -82,6 +83,30 @@ namespace Catalog.Host.Repositories
             {
                 return null;
             }
+        }
+
+        public async Task<Item> GetItemById(int id)
+        {
+            var item = await _dbContext.Items.FirstOrDefaultAsync(i => i.Id == id);
+
+            if (item is null)
+            {
+                throw new BusinessException($"Item with id ({id}) doesn't exist");
+            }
+
+            return item;
+        }
+
+        public async Task<IEnumerable<string>> GetCategoriesAsync()
+        {
+            var types = await _dbContext.Items.Select(i => i.Category).Distinct().ToListAsync();
+            return types;
+        }
+
+        public async Task<IEnumerable<string>> GetBrandsAsync()
+        {
+            var brands = await _dbContext.Items.Select(i => i.Brand).Distinct().ToListAsync();
+            return brands;
         }
     }
 }
