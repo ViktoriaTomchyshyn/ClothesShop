@@ -1,4 +1,5 @@
 ﻿using MVC.Services.Interfaces;
+using MVC.ViewModels;
 using MVC.ViewModels.CatalogViewModels;
 using MVC.ViewModels.Pagination;
 
@@ -29,5 +30,16 @@ public class CatalogController : Controller
         };
 
         return View(vm);
+    }
+
+    public async Task<IActionResult> ItemInfo(int id)
+    {
+        var item = await _catalogService.GetCatalogItem(id);
+        if (item is null)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        return View(item);
     }
 }

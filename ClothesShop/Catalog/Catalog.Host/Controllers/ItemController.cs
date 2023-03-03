@@ -1,11 +1,11 @@
-﻿using Catalog.Host.Models.Requests;
+﻿using System.Net;
+using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
 using Infrastructure;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace Catalog.Host.Controllers
 {

@@ -33,6 +33,5 @@ namespace Catalog.Host.Models.Requests
 
         [Required]
         public int AvailableStock { get; set; }
-
     }
 }

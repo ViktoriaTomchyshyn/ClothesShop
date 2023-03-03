@@ -1,6 +1,8 @@
 ﻿using Infrastructure.Services.Interfaces;
 using MVC.Dtos;
 using MVC.Models.Enums;
+using MVC.Models.Requests;
+using MVC.Models.Responses;
 using MVC.Services.Interfaces;
 using MVC.ViewModels;
 
@@ -27,6 +29,16 @@ public class CatalogService : ICatalogService
            new ItemsRequest<CatalogTypeFilter>());
 
         return result;
+    }
+
+    public async Task<Item> GetCatalogItem(int id)
+    {
+
+        var result = await _httpClient.SendAsync<ItemResponse<Item>, IdRequest>($"{_settings.Value.CatalogUrl}/item",
+           HttpMethod.Post,
+           new IdRequest() { Id = id });
+        _logger.LogInformation(result.Item.Name);
+        return result.Item;
     }
 
     public async Task<IEnumerable<SelectListItem>> GetBrands()

@@ -1,0 +1,28 @@
+﻿@model Item
+
+<section>
+    <div class="container">
+        <form>
+            <img src="@Model.PictureUrl" alt="@Model.Name" width="400" height="400" />
+            <div>
+                <h3> @Model.Name</h3>
+                <p>@Model.Description</p>
+                <p> Category: @Model.Category</p>
+                <p> Brand: @Model.Brand</p>
+                <p> Price: @Model.Price</p>
+
+
+                <div>Available Stock: <input asp-for="@Model.AvailableStock" name="amount" type="number" id="amount-input" min="0" max="@Model.AvailableStock" /></div>
+                
+                <button type="submit">Add to Basket</button>
+            </div>
+            <input type="hidden" asp-for="@Model.Id" name="id" />
+            <input type="hidden" asp-for="@Model.PictureUrl" name="pictureUrl" />
+            <input type="hidden" asp-for="@Model.Name" name="name" />
+            <input type="hidden" asp-for="@Model.Description" name="description" />
+            <input type="hidden" asp-for="@Model.Price" name="price" />
+            <input type="hidden" asp-for="@Model.Category" name="category" />
+            <input type="hidden" asp-for="@Model.Brand" name="brand" />
+        </form>
+    </div>
+</section>

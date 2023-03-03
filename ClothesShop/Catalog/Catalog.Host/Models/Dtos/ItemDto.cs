@@ -19,6 +19,5 @@
         public string PictureUrl { get; set; }
 
         public int AvailableStock { get; set; }
-
     }
 }

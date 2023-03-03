@@ -1,4 +1,5 @@
-﻿using Catalog.Host.Models.Dtos;
+﻿using System.Net;
+using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
@@ -6,7 +7,6 @@ using Infrastructure;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace Catalog.Host.Controllers
 {
@@ -37,11 +37,11 @@ namespace Catalog.Host.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ItemDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Product(GetByIdRequest request)
+        [ProducesResponseType(typeof(ItemResponse<ItemDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Item(GetByIdRequest request)
         {
             var result = await _catalogService.GetItemAsync(request.Id);
-            return Ok(result);
+            return Ok(new ItemResponse<ItemDto> { Item = result } );
         }
 
         [HttpPost]

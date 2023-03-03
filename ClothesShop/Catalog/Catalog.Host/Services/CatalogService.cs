@@ -18,7 +18,8 @@ namespace Catalog.Host.Services
             IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
             ILogger<BaseDataService<ApplicationDbContext>> logger,
             IItemRepository itemRepository,
-            ILogger<CatalogService> localLogger, IMapper mapper)
+            ILogger<CatalogService> localLogger,
+            IMapper mapper)
             : base(dbContextWrapper, logger)
         {
             _itemRepository = itemRepository;
@@ -37,6 +38,7 @@ namespace Catalog.Host.Services
                     var mappedItem = _mapper.Map<ItemDto>(item);
                     result.Add(mappedItem);
                 }
+
                 _logger.LogInformation($"Found {result.Count} items");
                 return new CatalogResponse() { Data = result };
             });
@@ -78,6 +80,5 @@ namespace Catalog.Host.Services
                 return categories;
             });
         }
-
     }
 }

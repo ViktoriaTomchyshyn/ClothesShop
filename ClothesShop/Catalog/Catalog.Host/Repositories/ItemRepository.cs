@@ -87,7 +87,7 @@ namespace Catalog.Host.Repositories
 
         public async Task<Item> GetItemById(int id)
         {
-            var item = await _dbContext.Items.FirstOrDefaultAsync(i => i.Id == id);
+            var item = await _dbContext.Items.FindAsync(id);
 
             if (item is null)
             {
@@ -99,13 +99,13 @@ namespace Catalog.Host.Repositories
 
         public async Task<IEnumerable<string>> GetCategoriesAsync()
         {
-            var types = await _dbContext.Items.Select(i => i.Category).Distinct().ToListAsync();
+            var types = await _dbContext.Items.Select(i => i.Category).Distinct().OrderBy(c => c).ToListAsync();
             return types;
         }
 
         public async Task<IEnumerable<string>> GetBrandsAsync()
         {
-            var brands = await _dbContext.Items.Select(i => i.Brand).Distinct().ToListAsync();
+            var brands = await _dbContext.Items.Select(i => i.Brand).Distinct().OrderBy(b => b).ToListAsync();
             return brands;
         }
     }
