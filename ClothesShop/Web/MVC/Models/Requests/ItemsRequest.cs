@@ -2,5 +2,5 @@ namespace MVC.Dtos;
 
 public class ItemsRequest<T>
 {   
-    public Dictionary<T, int>? Filters { get; set; }
+    public Dictionary<T, string>? Filters { get; set; }
 }

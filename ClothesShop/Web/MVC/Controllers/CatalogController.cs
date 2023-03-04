@@ -14,9 +14,9 @@ public class CatalogController : Controller
         _catalogService = catalogService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? brandFilterApplied, string? categoriesFilterApplied)
     {   
-        var catalog = await _catalogService.GetCatalogItems();
+        var catalog = await _catalogService.GetCatalogItems(brandFilterApplied, categoriesFilterApplied);
         if (catalog == null)
         {
             return View("Error");

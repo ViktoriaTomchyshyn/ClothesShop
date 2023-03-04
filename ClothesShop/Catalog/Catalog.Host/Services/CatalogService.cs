@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Catalog.Host.Data;
 using Catalog.Host.Models.Dtos;
+using Catalog.Host.Models.Enums;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
@@ -27,16 +28,38 @@ namespace Catalog.Host.Services
             _mapper = mapper;
         }
 
-        public async Task<CatalogResponse> GetItemsAsync()
+        public async Task<CatalogResponse> GetItemsAsync(Dictionary<ItemTypeFilter, string>? filters)
         {
             return await ExecuteSafeAsync(async () =>
             {
-                var items = await _itemRepository.GetAsync();
+                string? brandFilter = null;
+                string? categoryFilter = null;
+
+                if (filters is not null)
+                {
+                    if (filters.TryGetValue(ItemTypeFilter.Brand, out var brand))
+                    {
+                        brandFilter = brand;
+                    }
+
+                    if (filters.TryGetValue(ItemTypeFilter.Category, out var category))
+                    {
+                        categoryFilter = category;
+                    }
+                }
+
+                var items = await _itemRepository.GetAsync(brandFilter, categoryFilter);
                 var result = new List<ItemDto>();
                 foreach (var item in items)
                 {
                     var mappedItem = _mapper.Map<ItemDto>(item);
                     result.Add(mappedItem);
+                }
+
+                if (result is null)
+                {
+                    _logger.LogWarning($"Items not found");
+                    return null!;
                 }
 
                 _logger.LogInformation($"Found {result.Count} items");

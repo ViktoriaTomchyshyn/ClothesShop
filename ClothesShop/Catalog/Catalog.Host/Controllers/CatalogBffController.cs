@@ -1,11 +1,13 @@
 ﻿using System.Net;
 using Catalog.Host.Models.Dtos;
+using Catalog.Host.Models.Enums;
 using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
 using Infrastructure;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Controllers
@@ -30,9 +32,9 @@ namespace Catalog.Host.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ProducesResponseType(typeof(CatalogResponse), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Items()
+        public async Task<IActionResult> Items(ItemsRequest<ItemTypeFilter> request)
         {
-            var result = await _catalogService.GetItemsAsync();
+            var result = await _catalogService.GetItemsAsync(request.Filters);
             return Ok(result);
         }
 

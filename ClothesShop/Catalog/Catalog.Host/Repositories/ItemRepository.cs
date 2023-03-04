@@ -1,4 +1,5 @@
-﻿using Catalog.Host.Data;
+﻿using System.Reflection;
+using Catalog.Host.Data;
 using Catalog.Host.Data.Entities;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
@@ -55,9 +56,21 @@ namespace Catalog.Host.Repositories
             }
         }
 
-        public async Task<IEnumerable<Item>> GetAsync()
+        public async Task<IEnumerable<Item>> GetAsync(string? brandFilter, string? categoryFilter)
         {
-            return await _dbContext.Items.Select(c => c).ToListAsync();
+            IQueryable<Item> query = _dbContext.Items;
+
+            if (brandFilter is not null)
+            {
+                query = query.Where(i => i.Brand == brandFilter);
+            }
+
+            if (categoryFilter is not null)
+            {
+                query = query.Where(p => p.Category == categoryFilter);
+            }
+
+            return query.ToList();
         }
 
         public async Task<int?> Update(int id, string name, string description, string category, string brand, string size, decimal price, string pictureFileName, int availableStock)

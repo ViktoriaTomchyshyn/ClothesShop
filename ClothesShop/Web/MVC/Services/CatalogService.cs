@@ -21,14 +21,30 @@ public class CatalogService : ICatalogService
         _logger = logger;
     }
 
-    public async Task<Catalog> GetCatalogItems()
+    public async Task<Catalog> GetCatalogItems(string? brand, string? category)
     {
-        
+        var filters = new Dictionary<CatalogTypeFilter, string>();
+
+        if (brand != null && brand != "all")
+        {
+            filters.Add(CatalogTypeFilter.Brand, brand);
+        }
+
+        if (category != null && category != "all")
+        {
+            filters.Add(CatalogTypeFilter.Category, category);
+        }
+
         var result = await _httpClient.SendAsync<Catalog, ItemsRequest<CatalogTypeFilter>>($"{_settings.Value.CatalogUrl}/items",
            HttpMethod.Post, 
-           new ItemsRequest<CatalogTypeFilter>());
+           new ItemsRequest<CatalogTypeFilter>()
+           {
+               Filters = filters
+           });
 
-        return result;
+        _logger.LogInformation($"Received {result.Data.Count} items from catalog");
+
+        return result!;
     }
 
     public async Task<Item> GetCatalogItem(int id)
