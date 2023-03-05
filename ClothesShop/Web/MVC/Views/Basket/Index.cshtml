@@ -1,0 +1,89 @@
+﻿@model IEnumerable<MVC.ViewModels.ItemBasket>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="align-content-center">Basket</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                <label>Price</label>
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            decimal totalPrice = 0;
+        }
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+
+                <td>
+                    @{
+                        decimal sum = item.Amount * item.Price;
+                        totalPrice += sum;
+                    }
+
+                    <label>@sum</label>
+                </td>
+                <td>
+                    <form asp-controller="Basket" asp-action="DeleteItem">
+                        <input type="hidden" asp-for="@item.Id" name="id" />
+                        <input type="hidden" value="1" name="amount" />
+                        <button type="submit">Delete 1</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="Basket" asp-action="DeleteItem">
+                        <input type="hidden" asp-for="@item.Id" name="id" />
+                        <input type="hidden" asp-for="@item.Amount" name="amount" />
+                        <button type="submit">Delete all</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                <label>Total price: </label>
+            </td>
+            <td>
+                <label>@totalPrice</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<a>Make an order</a>
