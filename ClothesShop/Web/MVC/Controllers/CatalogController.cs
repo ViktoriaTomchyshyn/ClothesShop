@@ -32,6 +32,7 @@ public class CatalogController : Controller
         return View(vm);
     }
 
+    [Authorize]
     public async Task<IActionResult> ItemInfo(int id)
     {
         var item = await _catalogService.GetCatalogItem(id);

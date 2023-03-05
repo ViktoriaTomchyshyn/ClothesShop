@@ -37,8 +37,8 @@ public class BasketBffController : ControllerBase
     public async Task<IActionResult> GetItems()
     {
         var basketId = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
-        var response = await _basketService.GetItems(basketId!);
-        return Ok(response);
+        var items = await _basketService.GetItems(basketId!);
+        return Ok(new GetItemsResponse<Item> { Items = items });
     }
 
     [HttpPost]

@@ -24,6 +24,11 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/override.css" type="text/css" />
     </environment>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
 </head>
 <body>
     <header class="esh-app-header">
@@ -33,11 +38,11 @@
                 <section class="col-lg-7 col-md-6 col-12">
                     <a class="navbar-brand" routerLink="catalog">
                         <a asp-area="" asp-controller="Catalog" asp-action="Index">
-                            <img src="~/images/brand.png" />
+                            <img src="~/images/brand.png" height="50" width="50" />
                         </a>
                     </a>
                 </section>
-                
+
                 @await Html.PartialAsync("_LoginPartial")
             </article>
         </div>

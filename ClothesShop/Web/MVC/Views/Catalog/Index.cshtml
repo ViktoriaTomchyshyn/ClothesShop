@@ -6,7 +6,7 @@
 
 <section class="esh-catalog-filters">
     <div class="container">
-        <form asp-action="Index" asp-controller="Catalog" method="post">
+        <form asp-action="Index" asp-controller="Catalog" method="post" class="d-flex">
             <label class="esh-catalog-label" data-title="brand">
                 <select asp-for="@Model.BrandFilterApplied" asp-items="@Model.Brands" class="esh-catalog-filter">
                     <option value="all">All Brands</option>
@@ -17,7 +17,11 @@
                     <option value="all">All Categories</option>
                </select>
             </label>
-            <input class="esh-catalog-send rounded-xl" type="image" src="~/images/arrow-right.svg" />
+            <input class="esh-catalog-send rounded-xl mb-auto mt-auto" type="image" src="~/images/arrow-right.svg" />
+
+            <a asp-controller="Basket" asp-action="Index" class="ml-auto py-3" >
+                View Basket
+            </a>
         </form>
     </div>
 </section>
