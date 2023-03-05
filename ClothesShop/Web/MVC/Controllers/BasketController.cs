@@ -44,6 +44,21 @@ namespace MVC.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> AddItemOneMore(int id)
+        {
+            var basketItems = await _basketService.GetItems();
+
+            if (basketItems == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var item = basketItems.First(b => b.Id == id);
+            item.Amount = 1;
+            await _basketService.AddItem(item);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
         public async Task<IActionResult> DeleteItem(int id, int amount)
         {
             await _basketService.DeleteItems(id, amount);

@@ -4,12 +4,12 @@
     <div class="container">
         <form asp-controller="Basket" asp-action="AddItem" method="post">
             <br /><br />
-            <div style="display:flex" class="row">
-                <div class="column">
+            <div>
+                <div class="width-50% float-left">
                     <img src="@Model.PictureUrl" alt="@Model.Name" width="400" height="400" />
                 </div>
 
-                <div class="column" style="margin-inline:10%">
+                <div class ="width-50% float-left" style="margin-inline:10%">
                     <h3> @Model.Name</h3>
                     <br />
                     <p>@Model.Description</p>
@@ -27,9 +27,11 @@
                             style="background-color: darkgray;color: black;font-size:xl; ">
                         Add to Basket
                     </button>
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </div>
-            <br /><br />
             <input type="hidden" asp-for="@Model.Id" name="id" />
             <input type="hidden" asp-for="@Model.PictureUrl" name="pictureUrl" />
             <input type="hidden" asp-for="@Model.Name" name="name" />
@@ -40,4 +42,5 @@
             <input type="hidden" asp-for="@Model.Size" name="size" />
         </form>
     </div>
+    <br/><br />
 </section>
