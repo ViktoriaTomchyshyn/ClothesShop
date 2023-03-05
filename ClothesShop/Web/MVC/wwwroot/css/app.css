@@ -24,8 +24,20 @@ body {
     box-sizing: border-box;
 }
 
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .preloading {
-    color: #00A69C;
+    color: #808080;
     display: block;
     font-size: 1.5rem;
     left: 50%;

@@ -3,19 +3,31 @@
 <section>
     <div class="container">
         <form>
+            <br/><br/>
+              <div style="display:flex" class="row">
+             <div class="column">
             <img src="@Model.PictureUrl" alt="@Model.Name" width="400" height="400" />
-            <div>
+                </div>
+
+              <div class="column" style="margin-inline:10%">
                 <h3> @Model.Name</h3>
+                <br/>
                 <p>@Model.Description</p>
+                <br/>
                 <p> Category: @Model.Category</p>
+                <br/>
                 <p> Brand: @Model.Brand</p>
+
+                <br/>
                 <p> Price: @Model.Price</p>
-
-
+                <br/>
                 <div>Available Stock: <input asp-for="@Model.AvailableStock" name="amount" type="number" id="amount-input" min="0" max="@Model.AvailableStock" /></div>
-                
-                <button type="submit">Add to Basket</button>
+                <br/><br/>
+                <button type="submit" class=" rounded-xl px-6 py-2" 
+                    style="background-color: darkgray;color: black;font-size:xl; ">Add to Basket</button>
+                </div>
             </div>
+            <br/><br/>
             <input type="hidden" asp-for="@Model.Id" name="id" />
             <input type="hidden" asp-for="@Model.PictureUrl" name="pictureUrl" />
             <input type="hidden" asp-for="@Model.Name" name="name" />
