@@ -39,6 +39,13 @@ namespace IdentityServer
                     {
                         new Scope("basket.basket"),
                     },
+                },
+                new ApiResource("order")
+                {
+                    Scopes = new List<Scope>
+                    {
+                        new Scope("order.order"),
+                    },
                 }
             };
         }
@@ -86,6 +93,19 @@ namespace IdentityServer
                 },
                 new Client
                 {
+                    ClientId = "order",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes =
+                    {
+                        "basket.basket"
+                    },
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                },
+                new Client
+                {
                     ClientId = "catalogswaggerui",
                     ClientName = "Catalog Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
@@ -112,6 +132,21 @@ namespace IdentityServer
                     AllowedScopes =
                     {
                         "mvc", "basket.basket"
+                    }
+                },
+                 new Client
+                {
+                    ClientId = "orderswaggerui",
+                    ClientName = "Order Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{configuration["OrderApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{configuration["OrderApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "mvc",
                     }
                 }
             };

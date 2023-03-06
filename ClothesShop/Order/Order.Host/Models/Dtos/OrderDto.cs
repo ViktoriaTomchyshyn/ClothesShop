@@ -10,7 +10,7 @@ namespace Order.Host.Models.Dtos
         public int OrderId { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string? UserId { get; set; }
 
         public DateTime Date { get; set; }
         public decimal TotalPrice { get; set; }

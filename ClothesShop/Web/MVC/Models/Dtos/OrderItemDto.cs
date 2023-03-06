@@ -1,6 +1,4 @@
-﻿using Order.Host.Data.Entities;
-
-namespace Order.Host.Models.Dtos
+﻿namespace MVC.Host.Models.Dtos
 {
     public class OrderItemDto
     {
@@ -9,6 +7,5 @@ namespace Order.Host.Models.Dtos
         public decimal Price { get; set; }
         public int Amount { get; set; }
         public int OrderId { get; set; }
-        public OrderInfo OrderInfo { get; set; } = null!;
     }
 }

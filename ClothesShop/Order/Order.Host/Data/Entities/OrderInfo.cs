@@ -6,7 +6,7 @@ namespace Order.Host.Data.Entities
     {
         public int OrderId { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public DateTime Date { get; set; }
         public decimal TotalPrice { get; set; }

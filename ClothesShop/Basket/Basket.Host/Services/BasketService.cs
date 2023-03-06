@@ -59,7 +59,26 @@ public class BasketService : IBasketService
         }
     }
 
-     public async Task<IEnumerable<Item>> GetItems(string userId)
+    public async Task DeleteBasket(string userId)
+    {
+        var items = await GetItems(userId);
+
+        foreach(var item in items)
+        {
+            var existingItem = items.FirstOrDefault(p => p.Id == item.Id);
+
+            if (existingItem is not null)
+            {
+                items = items.Where(p => p.Id != item.Id);
+
+                await _cacheService.AddOrUpdateAsync(userId, items);
+                _logger.LogInformation($"Item {existingItem?.Name} has been deleted");
+            }
+        }
+    }
+
+
+    public async Task<IEnumerable<Item>> GetItems(string userId)
     {
         var items = await _cacheService.GetAsync<IEnumerable<Item>>(userId);
 

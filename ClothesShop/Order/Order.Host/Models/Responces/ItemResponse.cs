@@ -1,4 +1,4 @@
-﻿namespace MVC.Models.Responses
+﻿namespace Order.Models.Responses
 {
     public class ItemResponse<T>
     {

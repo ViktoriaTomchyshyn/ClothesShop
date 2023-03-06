@@ -15,7 +15,7 @@ namespace Order.Host.Repositories
             _context = dbContextWrapper.DbContext;
         }
 
-        public async Task<int?> CreateOrderAsync(int userId, DateTime createdAt, decimal totalPrice, IEnumerable<OrderItem> items)
+        public async Task<int?> CreateOrderAsync(string userId, DateTime createdAt, decimal totalPrice, IEnumerable<OrderItem> items)
         {
             var order = new OrderInfo()
             {
@@ -38,7 +38,7 @@ namespace Order.Host.Repositories
             return orders;
         }
 
-        public async Task<IEnumerable<OrderInfo>> GetOrdersByUserIdAsync(int userId)
+        public async Task<IEnumerable<OrderInfo>> GetOrdersByUserIdAsync(string userId)
         {
             var orders = await _context.Orders
                 .Where(o => o.UserId == userId)
